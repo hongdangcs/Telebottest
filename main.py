@@ -1,6 +1,8 @@
+import InvestingCapture
 import constants as key
 import telebot
 import Responses as R
+import ScreenCapture as SC
 
 print("bot started...")
 
@@ -13,23 +15,47 @@ def send_welcome(message):
 
 @bot.message_handler(commands=['help'])
 def send_help(message):
-	bot.reply_to(message, "/help for help \n/start for start")
+	bot.reply_to(message, "/help for help \n/start for start"
+						  "\n/sendmeyourscreenshot for a screenshot of my computer"
+						  "\n/BTCnow Xem biểu đồ Bitcoin hiện tại"
+						  "\n/ETHnow Xem biểu đồ Ethereum hiện tại"
+						  "\n/VNInow Xem biểu đồ VNIndex hiện tại"
+				 "\n/LTCnow Xem biểu đồ Litecoin hiện tại")
 
+@bot.message_handler(commands=['BTCnow', 'ETHnow', 'VNInow', 'LTCnow'])
+def chartCaptureScreen(message):
+	photoName = ''
+	inmessage = message.text
+	inmessage = inmessage[1:]
+	if(inmessage=='BTCnow'):
+		photoName = 'BINANCE%3ABTCUSD'
+	if(inmessage=='ETHnow'):
+		photoName ='BINANCE:ETHUSD'
+	if (inmessage == 'VNInow'):
+		photoName = 'HOSE%3AVNINDEX'
+	if (inmessage == 'LTCnow'):
+		photoName = 'BINANCE%3ALTCUSD'
 
-@bot.message_handler(commands=['yourphoto'])
-def send_image(message):
-	with open('C:/Users/PHAMHONGDANG/PycharmProjects/pythonProject/photo/tradingview.png', 'rb') as f:
-		image_data = f.read()
+	imageName = str(message.chat.id)
 
-	# Send the image to the chat where the /image command was typed
-	bot.send_photo(chat_id=message.chat.id, photo=image_data)
+	price = InvestingCapture.investCapture(imageName, photoName)
+	bot.send_message(message.chat.id, "Giá "+ inmessage[:3]+" hiện tại là: "+price)
 
+	photo1 = open("C://Users//PHAMHONGDANG//Downloads//ScreenShot//"+imageName+".png", 'rb')
+	bot.send_photo(message.chat.id, photo1)
+	print(photoName)
 
-@bot.message_handler(commands=['photo'])
-def msg4(message):
-	photo1 = open("C://Users//PHAMHONGDANG//Downloads//tradingview.png", 'rb')
+@bot.message_handler(commands=['sendmeyourscreenshot'])
+def computerScreenShot(message):
+
+	imageName = str(message.chat.id)
+
+	SC.screenShot(imageName)
+
+	photo1 = open("C://Users//PHAMHONGDANG//Downloads//ScreenShot//"+ imageName +".png", 'rb')
 	bot.send_photo(message.chat.id, photo1)
 	print("Photo Sent")
+
 
 
 
