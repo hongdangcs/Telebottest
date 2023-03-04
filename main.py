@@ -20,7 +20,7 @@ def send_help(message):
 						  "\n/BTCnow Xem biểu đồ Bitcoin hiện tại"
 						  "\n/ETHnow Xem biểu đồ Ethereum hiện tại"
 						  "\n/VNInow Xem biểu đồ VNIndex hiện tại"
-				 "\n/LTCnow Xem biểu đồ Litecoin hiện tại")
+						  "\n/LTCnow Xem biểu đồ Litecoin hiện tại")
 
 @bot.message_handler(commands=['BTCnow', 'ETHnow', 'VNInow', 'LTCnow'])
 def chartCaptureScreen(message):
@@ -41,7 +41,7 @@ def chartCaptureScreen(message):
 	price = InvestingCapture.investCapture(imageName, photoName)
 	bot.send_message(message.chat.id, "Giá "+ inmessage[:3]+" hiện tại là: "+price)
 
-	photo1 = open("C://Users//PHAMHONGDANG//Downloads//ScreenShot//"+imageName+".png", 'rb')
+	photo1 = open("photo/"+imageName+".png", 'rb')
 	bot.send_photo(message.chat.id, photo1)
 	print(photoName)
 
@@ -52,7 +52,7 @@ def computerScreenShot(message):
 
 	SC.screenShot(imageName)
 
-	photo1 = open("C://Users//PHAMHONGDANG//Downloads//ScreenShot//"+ imageName +".png", 'rb')
+	photo1 = open("photo/"+ imageName +".png", 'rb')
 	bot.send_photo(message.chat.id, photo1)
 	print("Photo Sent")
 

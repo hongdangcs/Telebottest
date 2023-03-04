@@ -10,4 +10,4 @@ height = 200
 
 def screenShot(image_name):
     image = ImageGrab.grab(bbox=(left, top, left+width, top+height))
-    image.save("C://Users//PHAMHONGDANG//Downloads//ScreenShot//"+ image_name +".png")
+    image.save("photo/"+ image_name +".png")
