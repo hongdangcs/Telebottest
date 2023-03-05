@@ -37,13 +37,14 @@ def chartCaptureScreen(message):
 		photoName = 'BINANCE%3ALTCUSD'
 
 	imageName = str(message.chat.id)
-	home_dir = os.system("node takescreenshot.js '" +photoName +"' '"+imageName+"'")
+	home_dir = os.system("node takescreenshot.js " +photoName +" "+imageName)
 #	price = InvestingCapture.investCapture(imageName, photoName)
-	bot.send_message(message.chat.id, "Giá "+ inmessage[:3]+" hiện tại là: ")
+	with open(imageName + 'price.txt', 'r') as f:
+		myText = f.read()
+	bot.send_message(message.chat.id, "Giá "+ inmessage[:3]+" hiện tại là: " + myText)
 
-	photo1 = open("photo/'"+imageName+"'.png", 'rb')
+	photo1 = open("photo/"+imageName+".png", 'rb')
 	bot.send_photo(message.chat.id, photo1)
-	print(photoName)
 
 @bot.message_handler(commands=['sendmeyourscreenshot'])
 def computerScreenShot(message):
