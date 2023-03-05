@@ -1,7 +1,7 @@
 import InvestingCapture
 import constants as key
 import telebot
-import Responses as R
+import os
 import ScreenCapture as SC
 
 print("bot started...")
@@ -37,11 +37,11 @@ def chartCaptureScreen(message):
 		photoName = 'BINANCE%3ALTCUSD'
 
 	imageName = str(message.chat.id)
+	home_dir = os.system("node takescreenshot.js '" +photoName +"' '"+imageName+"'")
+#	price = InvestingCapture.investCapture(imageName, photoName)
+	bot.send_message(message.chat.id, "Giá "+ inmessage[:3]+" hiện tại là: ")
 
-	price = InvestingCapture.investCapture(imageName, photoName)
-	bot.send_message(message.chat.id, "Giá "+ inmessage[:3]+" hiện tại là: "+price)
-
-	photo1 = open("photo/"+imageName+".png", 'rb')
+	photo1 = open("photo/'"+imageName+"'.png", 'rb')
 	bot.send_photo(message.chat.id, photo1)
 	print(photoName)
 
