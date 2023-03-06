@@ -12,13 +12,12 @@ puppeteer
         const page = await browser.newPage();
         await page.goto("https://www.tradingview.com/chart/?symbol=" + args[0]);
         await page.screenshot({path: "photo/entire-page.png"});
-        await delay(1000);
+        await delay(250);
         await page.mouse.click(228, 21)
-        await delay(1000);
+        await delay(500);
 
         await page.mouse.click(310, 387)
-        await delay(1000);
-
+        await delay(500);
 
         //  await page.click('isFirst-Jc9IXW74');
 
@@ -27,11 +26,8 @@ puppeteer
 
         const inner_currency = await page.$eval('.currency-qqt8UV2f', element => element.innerHTML);
 
-        await delay(1000);
-
         const inner_price_html = await page.$eval('.buttonText-_W8EGxGy', element => element.innerHTML);
 
-        await delay(1000);
         let inner_price = inner_price_html.replace('<span class=\"highlight-vZ7uMuW4 growing-vZ7uMuW4\">', '');
         inner_price = inner_price.replace('</span>', '');
 
